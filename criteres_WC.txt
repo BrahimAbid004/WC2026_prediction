@@ -1,0 +1,5 @@
+1.Classement fifa
+2.valeur marchande
+3.Resultat depuis 2020 des matchs officiels uniquement
+4.meilleure defense en cas d egalite de proba des critères precedents
+5.dans le tour eliminatoire, c a dire apres la phase de poule on peut combiner avec ca l historique des tetes a tetes des equipes durant les 10 ans par exemple
