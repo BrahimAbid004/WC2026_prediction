@@ -17,14 +17,14 @@ Sur 10 000 simulations, les équipes les plus souvent couronnées :
 
 | Rang | Équipe | % Champion | % Top 4 |
 |------|--------|-----------|---------|
-| 1 | 🇪🇸 Espagne | ~11.5% | ~26.9% |
-| 2 | 🇦🇷 Argentine | ~11.4% | ~25.1% |
-| 3 | 🇫🇷 France | ~9.6% | ~23.6% |
-| 4 | 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre | ~8.3% | ~22.8% |
-| 5 | 🇵🇹 Portugal | ~6.6% | ~20.0% |
-| 6 | 🇧🇷 Brésil | ~5.9% | ~19.3% |
-| 7 | 🇲🇦 Maroc | ~5.5% | ~18.5% |
-| 8 | 🇳🇱 Pays-Bas | ~5.2% | ~17.8% |
+| 1 | Espagne | ~11.5% | ~26.9% |
+| 2 | Argentine | ~11.4% | ~25.1% |
+| 3 | France | ~9.6% | ~23.6% |
+| 4 | Angleterre | ~8.3% | ~22.8% |
+| 5 | Portugal | ~6.6% | ~20.0% |
+| 6 | Brésil | ~5.9% | ~19.3% |
+| 7 | Maroc | ~5.5% | ~18.5% |
+| 8 | Pays-Bas | ~5.2% | ~17.8% |
 
 > Les résultats sont stables sur deux séries indépendantes de 10 000 simulations (variation < 0.5 point), ce qui confirme la convergence statistique du modèle.
 
@@ -68,13 +68,7 @@ Cinq fichiers CSV alimentent le modèle, tous basés sur des données officielle
 
 Chaque indicateur est normalisé en `[0, 1]` via Min-Max (avec inversion pour les métriques « moins c'est mieux » comme le classement FIFA et les buts encaissés).
 
-**Puissance d'attaque :**
 
-$$\text{puissance\_attaque} = 0.4 \times \text{buts\_norme} + 0.3 \times \text{taux\_victoires} + 0.2 \times \text{valeur\_log\_norme} + 0.1 \times \text{score\_fifa\_norme}$$
-
-**Solidité défensive :**
-
-$$\text{puissance\_defense} = 0.5 \times \text{solidite\_defensive} + 0.3 \times \text{taux\_invincibilite} + 0.2 \times \text{score\_fifa\_norme}$$
 
 > La valeur marchande est transformée en `log₁₀` avant normalisation pour compresser l'écart entre les grandes nations (France ~1.2 Md€) et les petites sélections (Haïti ~10 M€).
 
@@ -111,7 +105,6 @@ Le format officiel de la CdM 2026 est intégralement reproduit :
 
 La fonction `simuler_un_tournoi()` encapsule l'intégralité du tournoi et retourne `{champion, finaliste, troisieme, quatrieme}`. Elle est exécutée **10 000 fois** et les fréquences de chaque résultat convergent vers les probabilités estimées.
 
-**Optimisation clé :** les lookups `df_master[df_master['team']==...]` (1.5 ms/appel) ont été remplacés par des dictionnaires Python pré-calculés (0.002 ms/appel), soit un gain de **760×** — ramenant les 10 000 simulations de ~25 minutes à ~2 minutes.
 
 ---
 
@@ -125,8 +118,7 @@ Le notebook produit 6 graphiques complémentaires :
 | 2 | Barres empilées | Top 20 équipes par score global |
 | 3 | Barres horizontales | Probabilités de remporter le titre (top 15) |
 | 4 | Barres groupées | Probabilités par position : Champion / Finaliste / 3ᵉ place |
-| 5 | Heatmap | Vue matricielle Top 15 × 4 positions |
-| 6 | Radar chart | Profils multidimensionnels des 6 grands favoris |
+
 
 ---
 
@@ -157,20 +149,7 @@ Le reste du notebook s'exécute sans modification.
 
 ---
 
-## Limites et perspectives
 
-**Limites actuelles :**
-- Les pondérations des scores composites sont fixées manuellement, sans calibration sur résultats historiques
-- L'égalité en K.O. est résolue par un tirage 50/50 (pas de modélisation fine des tirs au but)
-- Le modèle ne tient pas compte de la forme récente (5 derniers matchs), des blessures ni du contexte géographique (avantage relatif USA/Canada/Mexique)
-
-**Améliorations possibles :**
-- Calibration des poids par régression logistique sur les CdM 2010–2022
-- Pondération temporelle des résultats (matchs récents > matchs anciens)
-- Modélisation des tirs au but (historique par équipe)
-- Interface interactive (Streamlit ou Dash) pour explorer les résultats en temps réel
-
----
 
 ## Conclusion
 
@@ -178,8 +157,3 @@ Ce projet démontre qu'un modèle relativement simple — cinq sources de donné
 
 ---
 
-## Auteur
-
-Projet réalisé dans le cadre d'une démarche personnelle d'application de la data science au football.
-
-*Données sources : FIFA, Transfermarkt, résultats officiels des sélections nationales (2021–2025)*
